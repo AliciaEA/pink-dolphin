@@ -15,7 +15,7 @@
     }
 
     #zoo_linkBanner {
-        background-color: rgb(29, 65, 29);
+        background-color: rgb(85, 33, 55);
         padding: 10px;
         text-align: center;
         vertical-align: center;
@@ -38,6 +38,7 @@
 </style>
 
 <a href = "https://zoo.hackclub.com"><div id="zoo_linkBanner">
-    <h1>CHECK OUT MORE AT THE ZOO <span class="material-symbols-outlined bannerIcon">pets</span> </h1>
+    <h1 id="banner_tittle">CHECK OUT MORE AT THE ZOO <span class="material-symbols-outlined bannerIcon">pets</span> </h1>
 </div></a>
-<div style="height: 100px"></div>
+<!-- I changed the height because it made like a separation between the banner and the hero section -->
+<div style="height: 70px"></div>
