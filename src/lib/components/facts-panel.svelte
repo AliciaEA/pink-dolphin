@@ -1,29 +1,39 @@
 <script>
-    import { fly, fade } from "svelte/transition";
-    import scienceFacts from "$lib/data/facts.json";
+    import { fly } from "svelte/transition";
+    import fallbackFacts from "$lib/data/facts.json";
+    import { createEventDispatcher } from "svelte";
+
+    // Props: facts (array), startIndex (number), onUnlock (function)
+    let { facts = [], startIndex = 0, onUnlock = null } = $props();
+
+    // Fallback if no facts passed
+    if (!facts || facts.length === 0) {
+        facts = fallbackFacts;
+    }
+
+    const dispatch = createEventDispatcher();
 
     let isUnlocked = $state(false);
-
-    // The # Slide we are on
-    let currentIndex = $state(0);
-
-    //Data based on the index
-    let currentFact = $derived(scienceFacts[currentIndex]);
-
+    let currentIndex = $state(startIndex);
+    let currentFact = $derived(facts[currentIndex]);
     let isFirst = $derived(currentIndex === 0);
-    let isLast = $derived(currentIndex === scienceFacts.length - 1);
+    let isLast = $derived(currentIndex === facts.length - 1);
 
-    // Next Logic Button
     function next() {
         if (!isLast) {
             currentIndex += 1;
-            if (currentIndex === scienceFacts.length - 1) {
+            if (currentIndex === facts.length - 1) {
                 isUnlocked = true;
+                // Callback prop if provided
+                if (typeof onUnlock === 'function') {
+                    onUnlock();
+                }
+                // Dispatch event for parent listeners
+                dispatch('unlock');
             }
         }
     }
 
-    // Prev Logic Button
     function prev() {
         if (!isFirst) {
             currentIndex -= 1;
@@ -72,7 +82,7 @@
 
     <!-- Dots. For each fact, one dot. Mark the active panel as a full dot -->
     <div class="progress-dots">
-        {#each scienceFacts as _, i}
+        {#each facts as _, i}
             <div class="dot" class:active={i === currentIndex}></div>
         {/each}
     </div>
