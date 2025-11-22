@@ -3,18 +3,20 @@
 
 <main>
     <section class="hero">
-        <h1>Pink Dolphins</h1>
-        <p>
-            The world's largest freshwater dolphin is rapidly disappearing.
-            Discover the myths, the facts, and the fight to save the Inia
-            geoffrensis - The Pink Dolphin
-        </p>
-        <a href="https/github.com/AliciaEA" class="btn">Read More</a>
+        <div class="container">
+            <h1>Pink Dolphins</h1>
+            <p>
+                The world's largest freshwater dolphin is rapidly disappearing.
+                Discover the myths, the facts, and the fight to save the Inia
+                geoffrensis - The Pink Dolphin
+            </p>
+            <a href="https/github.com/AliciaEA" class="btn">Read More</a>
+        </div>
     </section>
 
-    <section class="intro">
+    <section class="intro container">
         <img src="./images/pink-dolphin-intro.png" alt="Pink Dolphin" />
-        <div class="text">
+        <div class="text container">
             <h2>Meet the Pink Dolphin</h2>
             <p>
                 Often called the <strong>Boto</strong>, the Amazon Pink River
@@ -111,9 +113,15 @@
 </main>
 
 <style>
+    /* Hero Section */
+    h1 {
+        font-family: "Jim Nightshade";
+        font-size: 3.5rem;
+        color: rgb(245, 221, 232);
+    }
     .hero {
         background: linear-gradient(
-                rgba(87, 71, 71, 0.35),
+                rgba(207, 161, 161, 0.35),
                 rgba(49, 8, 8, 0.35)
             ),
             url("/images/hero-background.jpg");
@@ -121,5 +129,73 @@
         background-position: center;
         height: 600px;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero p {
+        color: rgb(209, 186, 199);
+        margin-bottom: 3rem;
+    }
+
+    /* Intro Section */
+    .intro {
+        display: grid;
+        grid-template-columns: 600px 1fr;
+        align-items: center;
+        margin-top: 5rem;
+    }
+    .intro img {
+        margin: 0 auto 20px auto;
+        max-width: 800px;
+        border-radius: 10px;
+    }
+
+    /* Info Section */
+    .info{
+        margin: 6rem 3rem;
+        
+    }
+    .intro-facts{
+        display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 3rem;
+    }
+    .mini-fact span{
+        font-size: 6rem;
+    }
+    .mini-fact{
+        background-color: rgb(226, 200, 209);
+        border-radius: 50px;
+        padding: 50px;
+        text-align: center;
+    }
+    .mini-fact:hover{
+        background-color: rgb(202, 174, 184);
+        border-radius: 100px;
+        padding: 50px;
+        text-align: center;
+    }
+
+
+    /* Media */
+    
+    @media (max-width: 999px) {
+        .intro {
+            flex-direction: column;
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        .intro img {
+            max-width: 400px;
+        }
+    }
+    @media (max-width: 450px) {
+        .intro img {
+            max-width: 250px;
+        }
     }
 </style>
