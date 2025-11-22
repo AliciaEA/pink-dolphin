@@ -114,6 +114,7 @@
     </section>
 
     <section class="facts-section container">
+        <h2>Facts</h2>
         <FactsPanel />
 
     </section>
@@ -246,6 +247,8 @@
         background-color: rgb(230, 164, 164);
         color: brown;
     }
+
+    
     /* Media */
 
     @media (max-width: 999px) {
