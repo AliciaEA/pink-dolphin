@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "🦴",
+    "label": "Unfused Vertebrae",
+    "description": "Ocean dolphins have stiff necks for speed. The Amazon dolphin has 'unfused' neck vertebrae, allowing it to turn its head 90 degrees. This flexibility is evolved for navigating through flooded forests without getting stuck."
+  },
+  {
+    "icon": "🙃",
+    "label": "Upside-Down Swimmers",
+    "description": "Scientists often observe them swimming upside down. This isn't for fun; their chubby cheeks block their view downward. Flipping over helps them scan the river bottom for crabs and fish."
+  },
+  {
+    "icon": "🦷",
+    "label": "Heterodont Teeth",
+    "description": "Most dolphins have only one type of tooth. The Pink Dolphin is 'heterodont' (different teeth). They have pointy teeth in front to grab prey and molar-like teeth in the back to crush armored catfish and turtles."
+  },
+  {
+    "icon": "🔊",
+    "label": "The Melon Lens",
+    "description": "The bulbous forehead is called a 'melon'. It acts like an acoustic lens. They can change its shape with muscles to focus sound waves (echolocation), allowing them to 'see' in muddy water with zero visibility."
+  }
+]

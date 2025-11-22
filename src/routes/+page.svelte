@@ -1,4 +1,5 @@
 <script>
+    import FactsPanel from "$lib/components/facts-panel.svelte";
 </script>
 
 <main>
@@ -110,6 +111,11 @@
                 <h3>Fishing Conflicts</h3>
             </div>
         </div>
+    </section>
+
+    <section class="facts-section container">
+        <FactsPanel />
+
     </section>
 </main>
 
