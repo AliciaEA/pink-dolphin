@@ -6,7 +6,7 @@ body{
     padding: 0;
     background-color: rgb(243, 227, 236);
     font-size: 1.3rem;
-    font-family: 'GFS Neohellenic';
+    font-family: 'GFS Neohellenic', sans-serif;
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' style='font-size:24px;'%3E🫧%3C/text%3E%3C/svg%3E") 16 16, auto;
 }
 

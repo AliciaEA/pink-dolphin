@@ -1,6 +1,7 @@
 <script>
 	import favicon from "$lib/assets/favicon.svg";
 	import ZooBanner from "$lib/components/zoo.svelte";
+	import Footer from "$lib/components/footer.svelte";
 	import '../app.css'
 
 	let { children } = $props();
@@ -20,4 +21,6 @@
 <ZooBanner />
 
 {@render children()}
+
+<Footer />
 
