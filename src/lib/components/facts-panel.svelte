@@ -79,7 +79,7 @@
 
     <div class="secret">
         {#if isUnlocked}
-            <a href="/meetup" class="secret-btn btn">Meetup with Pink Dolphin</a
+            <a href="./meetup" class="secret-btn btn">Meetup with Pink Dolphin</a
             >
         {/if}
     </div>

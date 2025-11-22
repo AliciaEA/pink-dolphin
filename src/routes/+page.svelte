@@ -247,6 +247,9 @@
         background-color: rgb(230, 164, 164);
         color: brown;
     }
+    .facts-section{
+        margin-bottom: 12rem;
+    }
 
     
     /* Media */
