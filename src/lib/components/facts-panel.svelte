@@ -25,11 +25,11 @@
             if (currentIndex === facts.length - 1) {
                 isUnlocked = true;
                 // Callback prop if provided
-                if (typeof onUnlock === 'function') {
+                if (typeof onUnlock === "function") {
                     onUnlock();
                 }
                 // Dispatch event for parent listeners
-                dispatch('unlock');
+                dispatch("unlock");
             }
         }
     }
@@ -89,7 +89,8 @@
 
     <div class="secret">
         {#if isUnlocked}
-            <a href="./meetup" class="secret-btn btn">Meetup with Pink Dolphin</a
+            <a href="./meetup" class="secret-btn btn"
+                >Meetup with Pink Dolphin</a
             >
         {/if}
     </div>
@@ -123,11 +124,11 @@
         align-items: center;
         padding: 50px;
         border-radius: 40px;
-        box-shadow: rgb(209, 165, 180) 10px 10px 10px ;
+        box-shadow: rgb(209, 165, 180) 10px 10px 10px;
     }
     .carousel-viewport {
         position: relative;
-        max-height : 1600px;
+        max-height: 1600px;
         min-height: 400px;
         display: grid;
         place-items: center;
@@ -152,7 +153,6 @@
         border-radius: 2px;
     }
     p {
-        
         line-height: 1.6;
         color: #475569;
     }
@@ -181,11 +181,9 @@
         color: rgb(141, 105, 114);
     }
 
-    
     .btn:disabled {
         opacity: 0.4;
         cursor: not-allowed;
-        
     }
 
     /* Dots */
@@ -207,7 +205,6 @@
         transform: scale(1.2);
     }
 
- 
     /* Secret message */
     .secret-btn {
         display: inline-block;
@@ -227,5 +224,25 @@
         box-shadow: 0 10px 15px rgba(221, 15, 59, 0.4);
     }
 
-    
+    @media (max-width: 550px) {
+        .facts {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+        .science-panel {
+            max-width: 100%;
+            padding: 10px;
+        }
+        .icon-wrapper {
+            font-size: 2.5rem;
+        }
+        .fact-card p{
+            padding: 5px;
+            font-size: 1.15rem;
+        }
+    }
 </style>
