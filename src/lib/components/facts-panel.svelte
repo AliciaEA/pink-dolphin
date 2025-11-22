@@ -39,6 +39,21 @@
             currentIndex -= 1;
         }
     }
+    $effect(() => {
+        
+        function handleKeydown(e) {
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') prev();
+        }
+
+        
+        window.addEventListener('keydown', handleKeydown);
+
+        
+        return () => {
+            window.removeEventListener('keydown', handleKeydown);
+        };
+    });
 </script>
 
 <section class="whole">
