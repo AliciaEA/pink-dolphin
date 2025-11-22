@@ -1,20 +1,122 @@
-
 <script>
-    
 </script>
 
 <main>
     <section class="hero">
         <h1>Pink Dolphins</h1>
-        <p>The world's largest freshwater dolphin is rapidly disappearing. Discover the myths, the facts, and the fight to save the Inia geoffrensis - The Pink Dolphin</p>
+        <p>
+            The world's largest freshwater dolphin is rapidly disappearing.
+            Discover the myths, the facts, and the fight to save the Inia
+            geoffrensis - The Pink Dolphin
+        </p>
         <a href="https/github.com/AliciaEA" class="btn">Read More</a>
+    </section>
 
+    <section class="intro">
+        <img src="./images/pink-dolphin-intro.png" alt="Pink Dolphin" />
+        <div class="text">
+            <h2>Meet the Pink Dolphin</h2>
+            <p>
+                Often called the <strong>Boto</strong>, the Amazon Pink River
+                Dolphin is not your average marine mammal. Native to the
+                freshwater basins of the Amazon and Orinoco rivers in South
+                America, they are the largest and smartest of the five
+                freshwaters dolphin species left on Earth.
+            </p>
+        </div>
+    </section>
+
+    <section class="info">
+        <h2>Information</h2>
+        <div class="intro-facts">
+            <div class="mini-fact">
+                <span>📝</span>
+                <h3>Scientific name</h3>
+                <p>Inia geoffrensis</p>
+            </div>
+            <div class="mini-fact">
+                <span>🏞️</span>
+                <h3>Habitat</h3>
+                <p>
+                    Freshwater rivers in Brazil, Peru, Bolivia, Ecuador,
+                    Colombia, and Venezuela.
+                </p>
+            </div>
+            <div class="mini-fact">
+                <span>📏</span>
+                <h3>Size</h3>
+                <p>
+                    Up to 9 feet (2.7 meters) long and weighing up to 400 lbs.
+                </p>
+            </div>
+            <div class="mini-fact">
+                <span>⚠️</span>
+                <h3>Status</h3>
+                <p>Endangered (IUCN Red List).</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="whole-paragraph">
+        <h2>Why are they Pink?</h2>
+        <p>
+            Believe it or not, they aren't born pink! These dolphins are born
+            gray and slowly turn pink as they age. The pink coloration is
+            influenced by their capillary placement, diet, and exposure to
+            sunlight.
+        </p>
+
+        <div mini-paragraphs>
+            <div class="card">
+                <h3>Unmatched Agility</h3>
+                <p>
+                    Unlike ocean dolphins, the Boto has unfused neck vertebrae.
+                    This allows them to turn their heads 180 degrees, helping
+                    them navigate through flooded forests and weave around tree
+                    trunks to catch prey.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Master Hunters</h3>
+                <p>
+                    They use precision echolocation to find fish in muddy, dark
+                    river water where visibility is zero.
+                </p>
+            </div>
+            <div class="card">
+                <h3>A Diverse Diet</h3>
+                <p>
+                    They eat over 53 different species of fish, including
+                    piranhas, and even freshwater turtles.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="circles">
+        <h2>The Major Threats</h2>
+        <div class="circle">
+            <span class="material-symbols-outlined">skull</span>
+            <h3>Mercury Pollution</h3>
+        </div>
+        <div class="circle">
+            <span class="material-symbols-outlined">destruction</span>
+            <h3>Habitat Loss</h3>
+        </div>
+        <div class="circle">
+            <span class="material-symbols-outlined">rowing</span>
+            <h3>Fishing Conflicts</h3>
+        </div>
     </section>
 </main>
 
 <style>
-    .hero{
-        background: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),url('/images/hero-background.jpg');
+    .hero {
+        background: linear-gradient(
+                rgba(87, 71, 71, 0.35),
+                rgba(49, 8, 8, 0.35)
+            ),
+            url("/images/hero-background.jpg");
         background-size: cover;
         background-position: center;
         height: 600px;
