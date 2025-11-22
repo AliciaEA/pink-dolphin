@@ -86,6 +86,7 @@
 </section>
 
 <style>
+    /*Section */
     .whole {
         display: flex;
         justify-content: center;
@@ -93,6 +94,7 @@
         align-items: center;
         gap: 40px;
     }
+    /* Facts + Controls */
     .facts {
         display: flex;
         justify-content: center;
@@ -100,6 +102,8 @@
         gap: 20px;
         width: 100%;
     }
+
+    /* Fact Card */
     .science-panel {
         background-color: #f7eef5;
         max-width: 50%;
@@ -113,7 +117,8 @@
     }
     .carousel-viewport {
         position: relative;
-        max-height:800px;
+        max-height : 1600px;
+        min-height: 400px;
         display: grid;
         place-items: center;
         overflow: hidden;
@@ -136,6 +141,13 @@
         margin: 1rem 0;
         border-radius: 2px;
     }
+    p {
+        
+        line-height: 1.6;
+        color: #475569;
+    }
+
+    /* Navigation Controls */
     .controls {
         padding: 8px;
         border-radius: 100px;
@@ -159,11 +171,7 @@
         color: rgb(141, 105, 114);
     }
 
-    p {
-        font-size: 1.05rem;
-        line-height: 1.6;
-        color: #475569;
-    }
+    
     .btn:disabled {
         opacity: 0.4;
         cursor: not-allowed;
@@ -190,6 +198,7 @@
     }
 
  
+    /* Secret message */
     .secret-btn {
         display: inline-block;
         background: #a04b5d;
@@ -198,7 +207,7 @@
         padding: 0.75rem 1.5rem;
         border-radius: 50px;
         font-weight: bold;
-        font-size: 0.9rem;
+        font-size: 1.3rem;
         box-shadow: 5px 4px 12px rgba(185, 4, 80, 0.25);
         transition: transform 0.2s;
     }
@@ -208,5 +217,5 @@
         box-shadow: 0 10px 15px rgba(221, 15, 59, 0.4);
     }
 
-    /* Navigation Controls */
+    
 </style>
