@@ -134,7 +134,7 @@
         margin-bottom: 0.8rem;
     }
     a {
-        color: rgb(39, 13, 17);
+        color: rgb(133, 94, 100);
         text-decoration: none;
         transition: color 0.2s;
         font-size: 1.2rem;
