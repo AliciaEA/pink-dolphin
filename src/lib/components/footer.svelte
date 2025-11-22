@@ -22,7 +22,7 @@
         <div class="col links-col">
             <h4>Website Pages</h4>
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="./">Home</a></li>
                 <li><a href="./meetup">Interactive Page 'Meetup'</a></li>
             </ul>
         </div>
