@@ -3,6 +3,8 @@
 # Pink Dolphins
 
 *They are just so cute*
+<img width="903" height="710" alt="image" src="https://github.com/user-attachments/assets/11dd1d13-332f-4981-b17a-205e8f34bb25" />
+
 
 [Website](https://aliciaea.github.io/pink-dolphin/meetup)
 
@@ -62,9 +64,10 @@
 - Including if and each blocks (Fact Panel & Game)
 - Project responsive, works well on mobile, not just at a basic level
 - Making the facts panel a component and using $props to transfer information
+- Got Mynts from Demo (4)
 
 ## NO IKEA HERE!!!!
 
 ## The Zoo
 
-I love you (Lynn), I know this might be the end of the zoo, but I will surely so the next ysws you organize!
+I love you (Lynn), I know this might be the end of the zoo, but I will surely do the next ysws you organize!
