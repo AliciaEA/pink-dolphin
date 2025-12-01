@@ -294,7 +294,7 @@
         background: #cad9e3;
         min-height: 100vh;
         padding: 1rem;
-        touch-action: none;
+        
         --controls-space: 96px;
     }
 
@@ -382,7 +382,7 @@
 
     /* ----- */
 
-    canvas{ touch-action: none; }
+   
 
     .touch-zone{
         position: absolute;
