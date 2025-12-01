@@ -11,7 +11,7 @@
                 Discover the myths, the facts, and the fight to save the Inia
                 geoffrensis - The Pink Dolphin
             </p>
-            <a href="https/github.com/AliciaEA" class="btn">Read More</a>
+            <a href="./meetup" class="btn">Meet the Dolphin</a>
         </div>
     </section>
 
