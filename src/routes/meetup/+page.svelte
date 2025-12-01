@@ -189,6 +189,21 @@
         leftPressed = false;
         rightPressed = false;
     }
+    function handleCanvasTouchStart(e) {
+        if (e.touches && e.touches.length) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.touches[0].clientX - rect.left;
+            const isLeft = x < rect.width / 2;
+            leftPressed = isLeft;
+            rightPressed = !isLeft;
+        }
+        e.preventDefault();
+    }
+    function handleCanvasTouchEnd(e) {
+        leftPressed = false;
+        rightPressed = false;
+        e.preventDefault();
+    }
 </script>
 
 <!-- Orientation overlay appears only if landscape & small height -->
@@ -209,6 +224,9 @@
             onpointerup={handleCanvasPointerUp}
             onpointercancel={handleCanvasPointerUp}
             onpointerleave={handleCanvasPointerUp}
+            ontouchstart={handleCanvasTouchStart}
+            ontouchend={handleCanvasTouchEnd}
+            ontouchcancel={handleCanvasTouchEnd}
         ></canvas>
 
         {#if gameState === "start"}
@@ -278,6 +296,7 @@
         min-height: 100vh;
         padding: 1rem;
         touch-action: none;
+        --controls-space: 96px;
     }
 
     .header{
@@ -301,6 +320,8 @@
 		overflow: hidden;
 		background: #4fc3f7;
 		box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        clip-path: inset(0 0 var(--controls-space) 0);
+        margin-bottom: var(--controls-space);
     }
 
     canvas{
