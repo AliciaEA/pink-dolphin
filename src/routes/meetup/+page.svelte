@@ -67,6 +67,10 @@
         if (e.key === "ArrowRight" || e.key === "d") rightPressed = true;
         // Reiniciar con espacio
         if (e.code === "Space" && gameState !== "playing") startGame();
+        // Toggle pause with P or Escape during play/pause
+        if ((e.key === "p" || e.code === "Escape") && (gameState === "playing" || gameState === "paused")) {
+            togglePause();
+        }
     }
     function handleKeyUp(e) {
         if (e.key === "ArrowLeft" || e.key === "a") leftPressed = false;
@@ -105,6 +109,23 @@
         playerX = 175;
         frameCount = 0;
         // Loop is already running; no need to start again
+    }
+
+    function pauseGame() {
+        if (gameState !== "playing") return;
+        leftPressed = false;
+        rightPressed = false;
+        gameState = "paused";
+    }
+
+    function resumeGame() {
+        if (gameState !== "paused") return;
+        gameState = "playing";
+    }
+
+    function togglePause() {
+        if (gameState === "playing") return pauseGame();
+        if (gameState === "paused") return resumeGame();
     }
 
     function update() {
@@ -328,11 +349,21 @@
         {#if gameState === "playing"}
             <div class="hud">
                 <span>Score:{score}</span>
-                <span class="speed-tag">⚡{gameSpeed.toFixed(1)}</span>
+                <div class="hud-right">
+                    <span class="speed-tag">⚡{gameSpeed.toFixed(1)}</span>
+                    <button class="pause-btn" onclick={pauseGame} aria-label="Pause" title="Pause">⏸</button>
+                </div>
             </div>
             <!-- Invisible touch zones over the canvas as fallback -->
             <div class="touch-zone left" onpointerdown={pressLeft} onpointerup={releaseLeft} onpointerleave={releaseLeft} onpointercancel={releaseLeft}></div>
             <div class="touch-zone right" onpointerdown={pressRight} onpointerup={releaseRight} onpointerleave={releaseRight} onpointercancel={releaseRight}></div>
+        {/if}
+        {#if gameState === "paused"}
+            <div class="overlay">
+                <h2>Paused</h2>
+                <p>Score: {score}</p>
+                <button onclick={resumeGame}>Resume</button>
+            </div>
         {/if}
         {#if orientation === 'landscape' && vh < 420}
             <div class="overlay warn">
@@ -436,13 +467,35 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         padding: 0 15px;
         color: white;
         font-weight: bold;
         font-size: 1.1rem;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         pointer-events: none;
+        z-index: 16;
     }
+
+    .hud-right{ display: flex; gap: 8px; align-items: center; }
+    .pause-btn{
+        pointer-events: auto;
+        margin: 0;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        font-size: 18px;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.35);
+        border: 1px solid rgba(255,255,255,0.35);
+        color: #fff;
+        border-radius: 50%;
+        box-shadow: none;
+    }
+    .pause-btn:hover{ background: rgba(0,0,0,0.45); }
 
     /* ----- */
 
