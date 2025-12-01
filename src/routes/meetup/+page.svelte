@@ -9,8 +9,6 @@
     let vh = $state(0);
     // Breakpoint for mobile tweaks
     const SMALL_BREAKPOINT = 600; // px
-    const LOGICAL_WIDTH = 350;
-    const LOGICAL_HEIGHT = 600;
 
     let canvas;
     let ctx;
@@ -41,22 +39,15 @@
 
     // canvas and listeners
 
-            window.addEventListener("resize", handleResize);
-            window.addEventListener("orientationchange", handleResize);
     $effect(() => {
         if (canvas) {
             ctx = canvas.getContext("2d");
         }
 
-            // Initialize viewport/orientation and canvas backing store once
-            handleResize();
         window.addEventListener("keydown", handleKeyDown);
         window.addEventListener("keyup", handleKeyUp);
-        window.addEventListener("resize", handleResize);
 
         // Start the RAF loop once when mounted
-                window.removeEventListener("resize", handleResize);
-                window.removeEventListener("orientationchange", handleResize);
         if (!animationFrameId) {
             animationFrameId = requestAnimationFrame(loop);
         }
@@ -65,31 +56,12 @@
             window.removeEventListener("keydown", handleKeyDown);
 
             window.removeEventListener("keyup", handleKeyUp);
-            window.removeEventListener("resize", handleResize);
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
                 animationFrameId = undefined;
             }
         };
     });
-    function handleResize() {
-        vw = window.innerWidth;
-        vh = window.innerHeight;
-        orientation = vw > vh ? 'landscape' : 'portrait';
-        // Reset inputs on rotation/resize to avoid stuck movement
-        leftPressed = false;
-        rightPressed = false;
-        // Ensure canvas backing store matches displayed size and DPR
-        resizeCanvasBackingStore();
-    }
-    function resizeCanvasBackingStore() {
-        if (!canvas) return;
-        const rect = canvas.getBoundingClientRect();
-        const dpr = Math.max(1, window.devicePixelRatio || 1);
-        canvas.width = Math.max(1, Math.round(rect.width * dpr));
-        canvas.height = Math.max(1, Math.round(rect.height * dpr));
-        // No need to set transform here; we scale in render per logical size
-    }
     function handleKeyDown(e) {
         if (e.key === "ArrowLeft" || e.key === "a") leftPressed = true;
         if (e.key === "ArrowRight" || e.key === "d") rightPressed = true;
@@ -172,14 +144,8 @@
 
     function render() {
         if (!ctx) return;
-        // Scale drawing from logical space to current canvas backing size
-        const scaleX = canvas && canvas.width ? canvas.width / LOGICAL_WIDTH : 1;
-        const scaleY = canvas && canvas.height ? canvas.height / LOGICAL_HEIGHT : 1;
-        ctx.save();
-        ctx.scale(scaleX, scaleY);
-        // Clear logical area
         ctx.fillStyle = "#4fc3f7";
-        ctx.fillRect(0, 0, LOGICAL_WIDTH, LOGICAL_HEIGHT);
+        ctx.fillRect(0, 0, 350, 600);
 
         // No translation needed; canvas is sized responsively in CSS
         ctx.save();
@@ -304,7 +270,7 @@
             <div class="touch-zone left" onpointerdown={pressLeft} onpointerup={releaseLeft} onpointerleave={releaseLeft} onpointercancel={releaseLeft}></div>
             <div class="touch-zone right" onpointerdown={pressRight} onpointerup={releaseRight} onpointerleave={releaseRight} onpointercancel={releaseRight}></div>
         {/if}
-        {#if orientation === 'landscape' && vh < 420 && gameState !== "playing"}
+        {#if orientation === 'landscape' && vh < 420}
             <div class="overlay warn">
                 <h2>Rotate Device</h2>
                 <p>Portrait gives better play area</p>
@@ -439,7 +405,7 @@
     .game-page.landscape { flex-direction: row; align-items: flex-start; justify-content: center; gap: 1rem; }
     /* removed .mobile-controls in landscape */
     .canvas-wrapper { max-height: 80vh; }
-    .overlay.warn { background: rgba(120,0,0,0.55); pointer-events: none; }
+    .overlay.warn { background: rgba(120,0,0,0.55); }
 
     /* Mobile: make canvas fill viewport height using flex */
     @media (max-width: 600px) {
