@@ -3,6 +3,10 @@
     let score = $state(0);
     let highScore = $state(0);
     let gameSpeed = $state(3);
+    // Orientation tracking
+    let orientation = $state('portrait');
+    let vw = $state(0);
+    let vh = $state(0);
 
     let canvas;
     let ctx;
@@ -82,6 +86,8 @@
     // Main Logic
 
     function startGame() {
+        // No iniciar si aún no hay contexto del canvas
+        if (!ctx) return;
         gameState = "playing";
         score = 0;
         gameSpeed = 3;
@@ -91,65 +97,89 @@
         loop();
     }
 
-    function loop() {
-        if (gameState !== "playing") return;
+    function update() {
+        if (gameState === "playing") {
+            frameCount++;
+            score = Math.floor(frameCount / 10);
 
-        frameCount++;
-        score = Math.floor(frameCount / 10);
+            if (leftPressed && playerX > 0) playerX -= 5;
+            if (rightPressed && playerX < 350 - 40) playerX += 5;
 
-        if (leftPressed && playerX > 0) playerX -= 5;
-        if (rightPressed && playerX < 350 - 40) playerX += 5;
-
-        if (Math.random() < 0.02) {
-            obstacles.push({
-                x: Math.random() * (350 - 40),
-                y: -50,
-                width: 40,
-                height: 40,
-            });
-        }
-
-        // update obstacles positions
-        obstacles.forEach((obs) => {
-            obs.y += gameSpeed;
-        });
-
-        // collision detection
-        obstacles.forEach((obs) => {
-            if (
-                playerX < obs.x + obs.width &&
-                playerX + 40 > obs.x &&
-                playerY < obs.y + obs.height &&
-                playerY + 40 > obs.y
-            ) {
-                gameState = "gameover";
-                if (score > highScore) highScore = score;
+            if (Math.random() < 0.02) {
+                obstacles.push({
+                    x: Math.random() * (350 - 40),
+                    y: -50,
+                    width: 40,
+                    height: 40,
+                });
             }
-        });
 
-        // render
-        if (ctx) {
-            ctx.fillStyle = "#4fc3f7";
-            ctx.fillRect(0, 0, 350, 600);
-
-            ctx.fillStyle = "#ff6b81";
-            ctx.fillRect(playerX, playerY, 40, 40);
-
-            ctx.fillStyle = "white";
-            ctx.fillRect(playerX + 5, playerY + 5, 10, 10);
-            ctx.fillRect(playerX + 25, playerY + 5, 10, 10);
-
-            ctx.fillStyle = "#5d4037";
             obstacles.forEach((obs) => {
-                ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+                obs.y += gameSpeed;
+            });
+
+            obstacles.forEach((obs) => {
+                if (
+                    playerX < obs.x + obs.width &&
+                    playerX + 40 > obs.x &&
+                    playerY < obs.y + obs.height &&
+                    playerY + 40 > obs.y
+                ) {
+                    gameState = "gameover";
+                    if (score > highScore) highScore = score;
+                }
             });
         }
+    }
 
+    function render() {
+        if (!ctx) return;
+        ctx.fillStyle = "#4fc3f7";
+        ctx.fillRect(0, 0, 350, 600);
+
+        // Player dolphin
+        ctx.fillStyle = "#ff6b81";
+        ctx.fillRect(playerX, playerY, 40, 40);
+        ctx.fillStyle = "white";
+        ctx.fillRect(playerX + 5, playerY + 5, 10, 10);
+        ctx.fillRect(playerX + 25, playerY + 5, 10, 10);
+
+        // Obstacles
+        ctx.fillStyle = "#5d4037";
+        obstacles.forEach((obs) => {
+            ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+        });
+    }
+
+    function loop() {
+        update();
+        render();
         animationFrameId = requestAnimationFrame(loop);
+    }
+
+    // Pointer unified controls
+    function pressLeft(e) {
+        e.preventDefault();
+        leftPressed = true;
+    }
+    function releaseLeft(e) {
+        e.preventDefault();
+        leftPressed = false;
+    }
+    function pressRight(e) {
+        e.preventDefault();
+        rightPressed = true;
+    }
+    function releaseRight(e) {
+        e.preventDefault();
+        rightPressed = false;
     }
 </script>
 
-<div class="game-page">
+<!-- Orientation overlay appears only if landscape & small height -->
+
+
+<div class="game-page" class:landscape={orientation === 'landscape'}>
     <div class="header">
         <h1>Pink dolphin Game🐬</h1>
         <a href="/" class="black-link">Return Home</a>
@@ -181,27 +211,27 @@
                 <span class="speed-tag">⚡{gameSpeed.toFixed(1)}</span>
             </div>
         {/if}
+        {#if orientation === 'landscape' && vh < 420}
+            <div class="overlay warn">
+                <h2>Rotate Device</h2>
+                <p>Portrait gives better play area</p>
+            </div>
+        {/if}
     </div>
     <div class="mobile-controls">
         <button
             class="d-pad left"
-            ontouchstart={touchLeftStart}
-            ontouchend={touchLeftEnd}
-            onmousedown={touchLeftStart}
-            onmouseup={touchLeftEnd}
-        >
-            ⬅️
-        </button>
+            onpointerdown={pressLeft}
+            onpointerup={releaseLeft}
+            onpointerleave={releaseLeft}
+        >⬅️</button>
 
         <button
             class="d-pad right"
-            ontouchstart={touchRightStart}
-            ontouchend={touchRightEnd}
-            onmousedown={touchRightStart}
-            onmouseup={touchRightEnd}
-        >
-            ➡️
-        </button>
+            onpointerdown={pressRight}
+            onpointerup={releaseRight}
+            onpointerleave={releaseRight}
+        >➡️</button>
     </div>
 
     <p class="note">Controls: Keyboard Arrows or Touch Buttons</p>
@@ -340,5 +370,11 @@
         color: #64748b;
         text-align: center;
     }
+
+    /* Landscape responsive adjustments */
+    .game-page.landscape { flex-direction: row; align-items: flex-start; justify-content: center; gap: 1rem; }
+    .game-page.landscape .mobile-controls { flex-direction: column; max-width: 100px; margin-top: 0; }
+    .canvas-wrapper { max-height: 80vh; }
+    .overlay.warn { background: rgba(120,0,0,0.55); }
 
 </style>
