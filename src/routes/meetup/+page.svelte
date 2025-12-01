@@ -7,6 +7,9 @@
     let orientation = $state('portrait');
     let vw = $state(0);
     let vh = $state(0);
+    // Pixels cropped from bottom of visible stage (match CSS --controls-space)
+    const BOTTOM_CROP = 96;
+    const SMALL_BREAKPOINT = 600; // px
 
     let canvas;
     let ctx;
@@ -137,6 +140,11 @@
         ctx.fillStyle = "#4fc3f7";
         ctx.fillRect(0, 0, 350, 600);
 
+        // Shift gameplay up only on small screens (to match CSS crop)
+        const crop = vw <= SMALL_BREAKPOINT ? BOTTOM_CROP : 0;
+        ctx.save();
+        if (crop) ctx.translate(0, -crop);
+
         // Player dolphin
         ctx.fillStyle = "#ff6b81";
         ctx.fillRect(playerX, playerY, 40, 40);
@@ -149,6 +157,8 @@
         obstacles.forEach((obs) => {
             ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
         });
+
+        ctx.restore();
     }
 
     function loop() {
@@ -314,14 +324,12 @@
 		width: 350px;
 		height: 600px;
 		max-width: 100%;
-		max-height: 65vh; 
+        max-height: 65vh; 
 		border: 4px solid #0284c7;
 		border-radius: 12px;
 		overflow: hidden;
 		background: #4fc3f7;
 		box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        clip-path: inset(0 0 var(--controls-space) 0);
-        margin-bottom: var(--controls-space);
     }
 
     canvas{
@@ -439,5 +447,13 @@
     .game-page.landscape .mobile-controls { flex-direction: column; max-width: 100px; margin-top: 0; }
     .canvas-wrapper { max-height: 80vh; }
     .overlay.warn { background: rgba(120,0,0,0.55); }
+
+    /* Apply bottom crop only on small screens */
+    @media (max-width: 600px) {
+        .canvas-wrapper {
+            clip-path: inset(0 0 var(--controls-space) 0);
+            margin-bottom: var(--controls-space);
+        }
+    }
 
 </style>
