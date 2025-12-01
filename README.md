@@ -6,7 +6,7 @@
 <img width="903" height="710" alt="image" src="https://github.com/user-attachments/assets/11dd1d13-332f-4981-b17a-205e8f34bb25" />
 
 
-[Website](https://aliciaea.github.io/pink-dolphin/meetup)
+[Website](https://aliciaea.github.io/pink-dolphin)
 
 
 ![Hackatime](https://hackatime-badge.hackclub.com/U091QQE2X26/pink-dolphin)
