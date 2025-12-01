@@ -407,16 +407,21 @@
     .canvas-wrapper { max-height: 80vh; }
     .overlay.warn { background: rgba(120,0,0,0.55); }
 
-    /* Mobile: make canvas fit viewport height nicely */
+    /* Mobile: make canvas fill viewport height using flex */
     @media (max-width: 600px) {
-        .game-page { min-height: 100dvh; }
+        .game-page { height: 100dvh; min-height: 100dvh; padding: 0; overflow: hidden; }
+        .header { padding: 8px 0; }
         .canvas-wrapper {
             width: 100%;
             max-width: 100%;
             max-height: none;
-            height: calc(100dvh - 140px); /* reserve ~header/note */
+            height: auto;            /* override fixed height */
+            flex: 1;                 /* take remaining height */
+            min-height: 0;           /* allow flex item to shrink */
+            display: block;
         }
-        canvas { width: 100%; height: 100%; }
+        canvas { width: 100%; height: 100%; touch-action: none; }
+        .note { padding-bottom: env(safe-area-inset-bottom); }
     }
 
 </style>
