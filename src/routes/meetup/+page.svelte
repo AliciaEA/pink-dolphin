@@ -144,8 +144,53 @@
 
     function render() {
         if (!ctx) return;
-        ctx.fillStyle = "#4fc3f7";
+        const bg = ctx.createLinearGradient(0, 0, 0, 600);
+        bg.addColorStop(0, "#dbeeff");      
+        bg.addColorStop(0.55, "#5bbcff");  
+        bg.addColorStop(1, "#1d4ed8");      
+        ctx.fillStyle = bg;
         ctx.fillRect(0, 0, 350, 600);
+
+        const glow = ctx.createRadialGradient(175, 80, 10, 175, 80, 180);
+        glow.addColorStop(0, "rgba(255,255,255,0.22)");
+        glow.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, 350, 200);
+
+        const phase1 = frameCount * 0.02;
+        const phase2 = frameCount * 0.015;
+        const phase3 = frameCount * 0.03;
+        ctx.strokeStyle = "rgba(255,255,255,0.15)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let x = 0; x <= 350; x += 5) {
+            const y = 130 + Math.sin((x / 70) * Math.PI * 2 + phase1) * 6;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.beginPath();
+        for (let x = 0; x <= 350; x += 5) {
+            const y = 260 + Math.sin((x / 90) * Math.PI * 2 + phase2) * 8;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.beginPath();
+        for (let x = 0; x <= 350; x += 5) {
+            const y = 420 + Math.sin((x / 60) * Math.PI * 2 + phase3) * 5;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        for (let i = 0; i < 6; i++) {
+            const bx = (i * 60 + 30) % 350;
+            const by = 600 - ((frameCount * 1.2 + i * 120) % 700);
+            const r = 2 + (i % 3);
+            ctx.beginPath();
+            ctx.arc(bx, by, r, 0, Math.PI * 2);
+            ctx.strokeStyle = "rgba(255,255,255,0.25)";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
 
         // No translation needed; canvas is sized responsively in CSS
         ctx.save();
