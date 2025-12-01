@@ -48,11 +48,19 @@
         window.addEventListener("keydown", handleKeyDown);
         window.addEventListener("keyup", handleKeyUp);
 
+        // Start the RAF loop once when mounted
+        if (!animationFrameId) {
+            animationFrameId = requestAnimationFrame(loop);
+        }
+
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
 
             window.removeEventListener("keyup", handleKeyUp);
-            cancelAnimationFrame(animationFrameId);
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = undefined;
+            }
         };
     });
     function handleKeyDown(e) {
@@ -97,7 +105,7 @@
         obstacles = [];
         playerX = 175;
         frameCount = 0;
-        loop();
+        // Loop is already running; no need to start again
     }
 
     function update() {
