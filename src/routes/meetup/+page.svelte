@@ -41,16 +41,22 @@
 
     // canvas and listeners
 
+            window.addEventListener("resize", handleResize);
+            window.addEventListener("orientationchange", handleResize);
     $effect(() => {
         if (canvas) {
             ctx = canvas.getContext("2d");
         }
 
+            // Initialize viewport/orientation and canvas backing store once
+            handleResize();
         window.addEventListener("keydown", handleKeyDown);
         window.addEventListener("keyup", handleKeyUp);
         window.addEventListener("resize", handleResize);
 
         // Start the RAF loop once when mounted
+                window.removeEventListener("resize", handleResize);
+                window.removeEventListener("orientationchange", handleResize);
         if (!animationFrameId) {
             animationFrameId = requestAnimationFrame(loop);
         }
