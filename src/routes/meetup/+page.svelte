@@ -312,7 +312,7 @@
 <div class="game-page" class:landscape={orientation === 'landscape'}>
     <div class="header">
         <h1>Pink dolphin Game🐬</h1>
-        <a href="/" class="black-link">Return Home</a>
+        <a href="./" class="black-link">Return Home</a>
     </div>
 
     <div class="canvas-wrapper">
