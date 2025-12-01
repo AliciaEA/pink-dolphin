@@ -7,8 +7,7 @@
     let orientation = $state('portrait');
     let vw = $state(0);
     let vh = $state(0);
-    // Pixels cropped from bottom of visible stage (match CSS --controls-space)
-    const BOTTOM_CROP = 96;
+    // Breakpoint for mobile tweaks
     const SMALL_BREAKPOINT = 600; // px
 
     let canvas;
@@ -148,10 +147,8 @@
         ctx.fillStyle = "#4fc3f7";
         ctx.fillRect(0, 0, 350, 600);
 
-        // Shift gameplay up only on small screens (to match CSS crop)
-        const crop = vw <= SMALL_BREAKPOINT ? BOTTOM_CROP : 0;
+        // No translation needed; canvas is sized responsively in CSS
         ctx.save();
-        if (crop) ctx.translate(0, -crop);
 
         // Player dolphin
         ctx.fillStyle = "#ff6b81";
@@ -280,23 +277,7 @@
             </div>
         {/if}
     </div>
-    <div class="mobile-controls">
-        <button
-            class="d-pad left"
-            onpointerdown={pressLeft}
-            onpointerup={releaseLeft}
-            onpointerleave={releaseLeft}
-        >⬅️</button>
-
-        <button
-            class="d-pad right"
-            onpointerdown={pressRight}
-            onpointerup={releaseRight}
-            onpointerleave={releaseRight}
-        >➡️</button>
-    </div>
-
-    <p class="note">Controls: Keyboard Arrows or Touch Buttons</p>
+    <p class="note">Controls: Tap left/right or keyboard arrows</p>
 </div>
 
 <style>
@@ -401,36 +382,6 @@
 
     /* ----- */
 
-    .mobile-controls{
-        position: fixed;
-        bottom: 12px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 20;
-        display: flex;
-        gap: 15px;
-        width: calc(100% - 32px);
-        max-width: 350px;
-    }
-
-    .d-pad{
-        flex: 1;
-        padding: 20px 0;
-        background: white;
-        border: 2px solid #0284c7;
-        color: #0284c7;
-        border-radius: 12px;
-        font-size: 1rem;
-        text-transform: uppercase;
-        user-select: none;
-        touch-action: manipulation;
-    }
-
-    .d-pad:active{
-        background: #0284c7;
-        color: white;
-    }
-
     canvas{ touch-action: none; }
 
     .touch-zone{
@@ -452,16 +403,20 @@
 
     /* Landscape responsive adjustments */
     .game-page.landscape { flex-direction: row; align-items: flex-start; justify-content: center; gap: 1rem; }
-    .game-page.landscape .mobile-controls { flex-direction: column; max-width: 100px; margin-top: 0; }
+    /* removed .mobile-controls in landscape */
     .canvas-wrapper { max-height: 80vh; }
     .overlay.warn { background: rgba(120,0,0,0.55); }
 
-    /* Apply bottom crop only on small screens */
+    /* Mobile: make canvas fit viewport height nicely */
     @media (max-width: 600px) {
+        .game-page { min-height: 100dvh; }
         .canvas-wrapper {
-            clip-path: inset(0 0 var(--controls-space) 0);
-            margin-bottom: var(--controls-space);
+            width: 100%;
+            max-width: 100%;
+            max-height: none;
+            height: calc(100dvh - 140px); /* reserve ~header/note */
         }
+        canvas { width: 100%; height: 100%; }
     }
 
 </style>
