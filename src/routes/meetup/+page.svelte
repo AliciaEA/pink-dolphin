@@ -270,7 +270,7 @@
             <div class="touch-zone left" onpointerdown={pressLeft} onpointerup={releaseLeft} onpointerleave={releaseLeft} onpointercancel={releaseLeft}></div>
             <div class="touch-zone right" onpointerdown={pressRight} onpointerup={releaseRight} onpointerleave={releaseRight} onpointercancel={releaseRight}></div>
         {/if}
-        {#if orientation === 'landscape' && vh < 420}
+        {#if orientation === 'landscape' && vh < 420 && gameState !== "playing"}
             <div class="overlay warn">
                 <h2>Rotate Device</h2>
                 <p>Portrait gives better play area</p>
@@ -405,7 +405,7 @@
     .game-page.landscape { flex-direction: row; align-items: flex-start; justify-content: center; gap: 1rem; }
     /* removed .mobile-controls in landscape */
     .canvas-wrapper { max-height: 80vh; }
-    .overlay.warn { background: rgba(120,0,0,0.55); }
+    .overlay.warn { background: rgba(120,0,0,0.55); pointer-events: none; }
 
     /* Mobile: make canvas fill viewport height using flex */
     @media (max-width: 600px) {
