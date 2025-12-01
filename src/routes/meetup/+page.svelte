@@ -157,6 +157,25 @@
         ctx.fillRect(playerX + 5, playerY + 5, 10, 10);
         ctx.fillRect(playerX + 25, playerY + 5, 10, 10);
 
+        // Pupils (black) looking upward inside the eyes, slightly bigger
+        ctx.fillStyle = "#000";
+        ctx.fillRect(playerX + 7, playerY + 5, 6, 6);
+        ctx.fillRect(playerX + 27, playerY + 5, 6, 6);
+
+        // Nose (rectangular, pink) at the top of the head
+        ctx.fillStyle = "#ff6b81";
+        ctx.fillRect(playerX + 13, playerY - 4, 14, 4);
+
+        // Tail fluke with two tips (inverted heart look)
+        // Stem
+        ctx.fillRect(playerX + 18, playerY + 40, 4, 4);
+        // Left fluke
+        ctx.fillRect(playerX - 2, playerY + 44, 16, 4);
+        ctx.fillRect(playerX - 4, playerY + 48, 12, 4);
+        // Right fluke
+        ctx.fillRect(playerX + 26, playerY + 44, 16, 4);
+        ctx.fillRect(playerX + 32, playerY + 48, 12, 4);
+
         // Obstacles
         ctx.fillStyle = "#5d4037";
         obstacles.forEach((obs) => {
