@@ -174,6 +174,21 @@
         e.preventDefault();
         rightPressed = false;
     }
+
+    // Canvas-wide touch support: tap left/right half to move
+    function handleCanvasPointerDown(e) {
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const isLeft = x < rect.width / 2;
+        leftPressed = isLeft;
+        rightPressed = !isLeft;
+    }
+    function handleCanvasPointerUp(e) {
+        e.preventDefault();
+        leftPressed = false;
+        rightPressed = false;
+    }
 </script>
 
 <!-- Orientation overlay appears only if landscape & small height -->
@@ -186,7 +201,15 @@
     </div>
 
     <div class="canvas-wrapper">
-        <canvas bind:this={canvas} width="350" height="600"></canvas>
+        <canvas
+            bind:this={canvas}
+            width="350"
+            height="600"
+            onpointerdown={handleCanvasPointerDown}
+            onpointerup={handleCanvasPointerUp}
+            onpointercancel={handleCanvasPointerUp}
+            onpointerleave={handleCanvasPointerUp}
+        ></canvas>
 
         {#if gameState === "start"}
             <div class="overlay">
@@ -210,6 +233,9 @@
                 <span>Score:{score}</span>
                 <span class="speed-tag">⚡{gameSpeed.toFixed(1)}</span>
             </div>
+            <!-- Invisible touch zones over the canvas as fallback -->
+            <div class="touch-zone left" onpointerdown={pressLeft} onpointerup={releaseLeft} onpointerleave={releaseLeft} onpointercancel={releaseLeft}></div>
+            <div class="touch-zone right" onpointerdown={pressRight} onpointerup={releaseRight} onpointerleave={releaseRight} onpointercancel={releaseRight}></div>
         {/if}
         {#if orientation === 'landscape' && vh < 420}
             <div class="overlay warn">
@@ -339,10 +365,14 @@
     /* ----- */
 
     .mobile-controls{
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 20;
         display: flex;
         gap: 15px;
-        margin-top: 1rem;
-        width: 100%;
+        width: calc(100% - 32px);
         max-width: 350px;
     }
 
@@ -363,6 +393,18 @@
         background: #0284c7;
         color: white;
     }
+
+    canvas{ touch-action: none; }
+
+    .touch-zone{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        z-index: 15;
+    }
+    .touch-zone.left{ left: 0; }
+    .touch-zone.right{ right: 0; }
 
     .note{
         margin-top: 1rem;
